@@ -13,7 +13,7 @@ export class UserInputComponent {
   initialInvestment = 0;
   annualInvestment = 10;
   expectedReturn = 100;
-  duration = 1;
+  duration = 10;
   @Output() calculate = new EventEmitter<IUserInputInterface>();
 
   handleOnSubmit() {

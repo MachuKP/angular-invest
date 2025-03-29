@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IUserInputInterface } from './user-input-model';
 
@@ -10,19 +10,24 @@ import { IUserInputInterface } from './user-input-model';
   styleUrl: './user-input.component.css',
 })
 export class UserInputComponent {
-  initialInvestment = 0;
-  annualInvestment = 10;
-  expectedReturn = 100;
-  duration = 1;
-  @Output() calculate = new EventEmitter<IUserInputInterface>();
+  initialInvestment = signal(10000);
+  annualInvestment = signal(100);
+  expectedReturn = signal(50);
+  duration = signal(10);
+  calculate = output<IUserInputInterface>();
 
   handleOnSubmit() {
     const inputData = {
-      initialInvestment: this.initialInvestment,
-      annualInvestment: this.annualInvestment,
-      expectedReturn: this.expectedReturn,
-      duration: this.duration,
+      initialInvestment: this.initialInvestment(),
+      annualInvestment: this.annualInvestment(),
+      expectedReturn: this.expectedReturn(),
+      duration: this.duration(),
     };
     this.calculate.emit(inputData);
+
+    this.initialInvestment.set(0)
+    this.annualInvestment.set(0)
+    this.expectedReturn.set(0)
+    this.duration.set(0)
   }
 }

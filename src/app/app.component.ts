@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { UserInputComponent } from "./user-input/user-input.component";
 import { ICalculatedValueInterface, IUserInputInterface } from './user-input/user-input-model';
@@ -12,8 +12,7 @@ import { InvestmentResultComponent } from "./investment-result/investment-result
 
 })
 export class AppComponent {
-  // calculate with cross component method
-  investmentResult: ICalculatedValueInterface[] = [];
+  investmentResult = signal<ICalculatedValueInterface[]>([]);
 
   calculateInvestmentResults(data: IUserInputInterface) {
     const { initialInvestment, annualInvestment, expectedReturn, duration } =
@@ -37,8 +36,6 @@ export class AppComponent {
       });
     }
   
-    this.investmentResult = annualData;
+    this.investmentResult.set(annualData);
   }
-
-
 }

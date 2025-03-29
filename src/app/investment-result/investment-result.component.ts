@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { ICalculatedValueInterface } from '../user-input/user-input-model';
+import { Component } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
+import { InvestmentService } from '../investment.service';
 
 @Component({
   selector: 'app-investment-result',
@@ -10,5 +10,9 @@ import { CurrencyPipe } from '@angular/common';
   styleUrl: './investment-result.component.css',
 })
 export class InvestmentResultComponent {
-  @Input() results?: ICalculatedValueInterface[];
+  constructor(private investmentService: InvestmentService) {}
+
+  get results() {
+    return this.investmentService.calculateResult;
+  }
 }

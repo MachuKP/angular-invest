@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IUserInputInterface } from './user-input-model';
+import { InvestmentService } from '../investment.service';
 
 @Component({
   selector: 'app-user-input',
@@ -13,8 +13,8 @@ export class UserInputComponent {
   initialInvestment = 0;
   annualInvestment = 10;
   expectedReturn = 100;
-  duration = 1;
-  @Output() calculate = new EventEmitter<IUserInputInterface>();
+  duration = 10;
+  private investmentService = inject(InvestmentService);
 
   handleOnSubmit() {
     const inputData = {
@@ -23,6 +23,6 @@ export class UserInputComponent {
       expectedReturn: this.expectedReturn,
       duration: this.duration,
     };
-    this.calculate.emit(inputData);
+    this.investmentService.calculateInvestmentResults(inputData);
   }
 }
